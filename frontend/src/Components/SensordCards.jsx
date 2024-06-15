@@ -1,4 +1,4 @@
-
+import TemperatureVsTimeChart from './TemperatureVsTimeChart';
 
 const SensordCards = () => {
   return(
@@ -19,7 +19,7 @@ const SensordCards = () => {
 
       <div className="box-context w-56 h-12 bg-white rounded-lg shadow-green-900 shadow-xl">
          <div className="flex justify-center mt-1">
-           <p className="font-semibold text-2xl">Sensor 01</p>
+           <p className="sensorText">Sensor 01</p>
          </div>
       </div>
 
@@ -32,7 +32,7 @@ const SensordCards = () => {
       </div>
 
       <div className="box-context w-56 h-56 bg-white rounded-lg shadow-green-900 shadow-xl mt-4">
-        <div></div>
+        <div> <TemperatureVsTimeChart/></div>
       </div>
 
       </div>
