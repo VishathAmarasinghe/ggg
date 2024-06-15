@@ -1,4 +1,5 @@
 import React from 'react'
+import SensordCards from '../Components/SensordCards'
 
 const Dashboard = () => {
   return (
@@ -12,6 +13,8 @@ const Dashboard = () => {
       <div
         className="w-[95%] bg-white  h-[90%]  flex flex-col lg:flex-col items-center rounded-xl p-1 "
       >
+
+       <SensordCards/>
 
         </div>
         </div>
