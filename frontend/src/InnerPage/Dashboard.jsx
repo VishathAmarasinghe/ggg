@@ -1,7 +1,34 @@
-import React from 'react'
+
+import React, { useEffect, useState } from 'react'
+
 import SensordCards from '../Components/SensordCards'
 
+
 const Dashboard = () => {
+  const [SingleSensorData,setSingleSensorData]=useState([]);
+
+  useEffect(()=>{
+    const ws = new WebSocket('ws://localhost:5020');
+
+    ws.onopen = () => {
+      console.log('Connected to WebSocket server');
+    };
+
+    ws.onmessage = (message) => {
+      const newSensorData = JSON.parse(message.data);
+      setSingleSensorData(newSensorData);
+    };
+
+    ws.onclose = () => {
+      console.log('Disconnected from WebSocket server');
+    };
+
+    return () => {
+      ws.close();
+    };
+  },[])
+
+
   return (
     <div className="w-full h-[100%] flex flex-col items-center shadow-2xl overflow-y-auto">
       <div className="w-full">
