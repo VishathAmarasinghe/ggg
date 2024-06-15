@@ -14,13 +14,16 @@ app.use(cors());
 const PORT=5020;
 
 
-mysql.connect(config, (err) => {
-    if (err) {
-      console.error('Error connecting to the database:', err);
-    } else {
-      console.log('Connected to the database');
-    }
-  });
+
+var connection = mysql.createConnection(config);
+
+connection.connect((err) => {
+  if (err) {
+    console.error('Error connecting to the database:', err);
+    return;
+  }
+  console.log('Connected to the database');
+});
 
 
 app.use("/sensor",SensorRoute);
