@@ -1,5 +1,8 @@
 import { getPastDataByDateAndID } from "../SQLQueries/SensorDataQueries.js";
 
+
+
+//get all past sensor data
 export const getPastDataBySensorAndByDate= async (req, res) => {
     try {
         const {sensorID,date}=req.query;

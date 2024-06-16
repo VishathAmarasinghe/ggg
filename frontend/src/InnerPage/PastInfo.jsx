@@ -15,14 +15,20 @@ const PastInfo = () => {
   const [data, setData] = useState([]);
   const [chartData, setChartData] = useState([]);
 
+
+  //handle changing of sensor
   const handleChange = (value) => {
     setSelectedSensor(value);
   };
 
+
+  //handleCange date
   const handleDateChange = (date, dateString) => {
     setSelectedDate(dateString);
   };
 
+
+  //get past data
   const handleChangePastData = async () => {
     try {
       const result = await getPastSensorData(selectedDate, selectedSensor);

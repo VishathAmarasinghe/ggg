@@ -1,5 +1,7 @@
 import mysql from 'mysql2';
 
+
+//db Configurations
 const config = {
     host: 'sid-sql.mysql.database.azure.com',
     user: 'Master01',
@@ -12,7 +14,7 @@ const config = {
     connectTimeout: 10000 // Timeout in milliseconds
 };
 
-
+//db connection establishment
 const  connection = mysql.createConnection(config);
 
 export default connection;

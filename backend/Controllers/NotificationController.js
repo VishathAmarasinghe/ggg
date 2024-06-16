@@ -3,6 +3,10 @@ import { getAllNotificationsbyDateTimeDesc } from "../SQLQueries/NotificationQue
 import { getAllEmailsofUsers } from "../SQLQueries/UserQueries.js"
 import { bulkEmailSender } from "../Utils/BulkEmailSending.js";
 
+
+
+
+// send notifications 
 export const handleNotifications=async(fanSpeed,averageTemperature)=>{
     try {
         const emails =await getAllEmailsofUsers();
@@ -23,6 +27,8 @@ export const handleNotifications=async(fanSpeed,averageTemperature)=>{
 
 
 
+
+//get all notifications
 export const getAllNotifications=async(req,res)=>{
     try {
         const notificationDetails=await getAllNotificationsbyDateTimeDesc();

@@ -1,5 +1,8 @@
 import connection from "../Config/SqlConnection.js"
 
+
+
+//add notification to db
 export const addNewNotification=async(time,date,status)=>{
     try {
 
@@ -20,6 +23,8 @@ export const addNewNotification=async(time,date,status)=>{
     }
 }
 
+
+//get all notifications by date and time
 export const getAllNotificationsbyDateTimeDesc=async()=>{
     try {
 

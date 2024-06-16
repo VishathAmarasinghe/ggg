@@ -11,6 +11,8 @@ const PastNotifications = () => {
     fetchNotifications();
   }, []);
 
+
+  //fetch notifications
   const fetchNotifications = async () => {
     try {
       const notificationResult = await getAllNotifications();
@@ -23,6 +25,8 @@ const PastNotifications = () => {
     }
   };
 
+
+  //table columns
   const columns = [
     {
       title: 'ID',

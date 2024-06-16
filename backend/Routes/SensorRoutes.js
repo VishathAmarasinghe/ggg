@@ -4,6 +4,7 @@ import { getCurrentTemperatures, getSensorValues } from "../Controllers/calculat
 const route=express.Router();
 
 
+//sensor routes
 route.post("/data",getSensorValues);
 route.get("/temparatures",getCurrentTemperatures);
 
