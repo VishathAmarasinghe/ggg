@@ -32,7 +32,7 @@ const SensordCards = () => {
       </div>
 
       <div className="box-context w-56 h-56 bg-white rounded-lg shadow-green-900 shadow-xl mt-4">
-        <div> <TemperatureVsTimeChart/></div>
+        <div> <TemperatureVsTimeChart style={{ height: '100%', width: '100%' }} /></div>
       </div>
 
       </div>

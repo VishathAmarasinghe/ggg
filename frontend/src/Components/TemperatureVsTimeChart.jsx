@@ -3,11 +3,11 @@ import 'chart.js/auto';
 
 const TemperatureVsTimeChart = () => {
   const data = {
-    labels: ['9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM'], 
+    labels: ['6 AM', '9 AM', '12 PM', '3 PM', '6 PM', '9 PM', '12 AM'], // More labels for a longer x-axis
     datasets: [
       {
         label: 'Temperature (°C)',
-        data: [22, 23, 25, 26, 27, 26, 24], 
+        data: [ 26, 27, 26, 24, 64, 80, 40], // Adjust data points as needed
         fill: false,
         backgroundColor: 'rgb(255, 99, 132)',
         borderColor: 'rgba(255, 99, 132, 0.2)',
@@ -20,13 +20,16 @@ const TemperatureVsTimeChart = () => {
       y: {
         beginAtZero: true,
         ticks: {
-          stepSize: 5, 
+          stepSize: 2,
+          min: 0,
+          max: 100, // Adjust if you want a wider range
         },
       },
     },
+    maintainAspectRatio: false, // This allows the chart to fill the container
   };
 
-  return <Line data={data} options={options} />;
+  return <div className="chart-container"><Line data={data} options={options} /></div>;
 };
 
 export default TemperatureVsTimeChart;
