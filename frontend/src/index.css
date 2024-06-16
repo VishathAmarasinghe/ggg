@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components{
+    .sensorText{
+        @apply text-green-800 font-semibold text-2xl;
+    }
+}
