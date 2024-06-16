@@ -36,7 +36,7 @@ export const getAllSensorReadingsBydate=async(date)=>{
                 }
             })
         })
-        console.log("rows ",rows);
+        // console.log("rows ",rows);
         return rows;
     } catch (error) {
         throw error;
