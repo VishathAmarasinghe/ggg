@@ -2,8 +2,8 @@ import  express from "express";
 import bodyParser from "body-parser";
 import cors from 'cors';
 import SensorRoute from './Routes/SensorRoutes.js';
-import mysql from 'mysql2';
-import { config } from "./Config/SqlConnection.js";
+
+import connection from "./Config/SqlConnection.js";
 import { createWebSocketServer } from "./WebSocket.js";
 import http from 'http';
 
@@ -22,7 +22,7 @@ const PORT=5020;
 
 
 
-var connection = mysql.createConnection(config);
+
 
 connection.connect((err) => {
   if (err) {
