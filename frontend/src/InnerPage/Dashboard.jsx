@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 
 import SensordCards from '../Components/SensordCards'
-import { message } from 'antd';
+import { message, notification } from 'antd';
 import { getTriggeredTemparatures } from '../API';
 
 
@@ -25,6 +25,9 @@ const Dashboard = () => {
       console.log("new Sensor Data is ",newSensorData);
       if (newSensorData?.message!='keep-alive' && newSensorData?.message!="Welcome to the WebSocket server" ) {
         setSingleSensorData(newSensorData);
+        if (newSensorData?.notificationMsg!="") {
+          notification.warning({message:"Critical Alart",description:newSensorData?.notificationMsg})
+        }
       }
       
     };

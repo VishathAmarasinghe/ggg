@@ -1,11 +1,11 @@
 import connection from "../Config/SqlConnection.js"
 
-export const addSensorData=async(sensorId, date, time, value)=>{
+export const addNewNotification=async(time,date,status)=>{
     try {
 
         const rows=await new Promise((resolve,reject)=>{
-            connection.query("INSERT INTO `sensors data`(SENSOR_ID, DATE, TIME, VALUE) VALUES (?, ?, ?, ?)",
-            [sensorId, date, time, value],
+            connection.query("INSERT INTO notifications (TIME, DATE, STATUS) VALUES (?, ?, ?)",
+            [time,date,status],
             (err,row)=>{
                 if (err) {
                     reject(err)
@@ -14,20 +14,17 @@ export const addSensorData=async(sensorId, date, time, value)=>{
                 }
             })
         })
-        console.log("rows ",rows);
         return rows;
     } catch (error) {
         throw error;
     }
 }
 
-
-export const getAllSensorReadingsBydate=async(date)=>{
+export const getAllNotificationsbyDateTimeDesc=async()=>{
     try {
 
         const rows=await new Promise((resolve,reject)=>{
-            connection.query("SELECT * FROM `sensors data` where DATE=?",
-            [date],
+            connection.query("SELECT * from notifications order by DATE DESC,TIME DESC",
             (err,row)=>{
                 if (err) {
                     reject(err)
@@ -36,7 +33,6 @@ export const getAllSensorReadingsBydate=async(date)=>{
                 }
             })
         })
-        // console.log("rows ",rows);
         return rows;
     } catch (error) {
         throw error;

@@ -10,12 +10,12 @@ const SensordCards = ({sensorData}) => {
 
           <div className="w-96 border-r-2 border-green-700">
             <p className="text-2xl font-semibold pl-1">Average Temparature</p>
-            <p className="text-end italic font-bold p-1 text-4xl pr-3">{sensorData?.averageTemperature} °C</p>
+            <p className="text-end italic font-bold p-1 text-4xl pr-3">{parseFloat(sensorData?.averageTemperature)?.toFixed(2)} °C</p>
           </div>
 
           <div className="w-96 border-r-2 border-green-700">
             <p className="text-2xl font-semibold pl-1">Cooling/Heating</p>
-            <p className="text-end italic font-bold p-1 text-4xl pr-3">{sensorData?.coolTemp}</p>
+            <p className="text-end italic font-bold p-1 text-4xl pr-3">{sensorData?.finalArray?.coolTemp}</p>
           </div>
 
           <div className="w-96">

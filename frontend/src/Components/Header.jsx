@@ -95,10 +95,10 @@ const Header = ({
 
       <div className="flex flex-row h-full  items-center mr-4">
         <div className="hidden md:flex">
-          <Badge count={10} overflowCount={20} size="5px">
-             <NotificationsRoundedIcon style={{ fontSize: "27px" }} />
+          {/* <Badge count={10} overflowCount={20} size="5px"> */}
+             {/* <NotificationsRoundedIcon style={{ fontSize: "27px" }} /> */}
              {/* <BellOutlined className="text-[20px] text-gray-500" />  */}
-           </Badge>
+           {/* </Badge> */}
         </div>
         <Space className=" h-full mx-5 flex flex-col justify-center  items-center">
           <p className="font-semibold text-[15px] font-inter ">

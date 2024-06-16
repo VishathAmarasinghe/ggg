@@ -4,6 +4,8 @@ import {
   getAllSensorReadingsBydate,
 } from "../SQLQueries/SensorDataQueries.js";
 import { broadcastData } from "../WebSocket.js";
+import {handleNotifications} from '../Controllers/NotificationController.js'
+import { addNewNotification } from "../SQLQueries/NotificationQueires.js";
 
 export const getSensorValues = async (req, res) => {
   const sensors = req.body.sensors;
@@ -18,12 +20,16 @@ export const getSensorValues = async (req, res) => {
 
     const averageTemperature = calculateAverage(temperatures);
     const fanSpeed = determineFanSpeed(averageTemperature);
+    let timeValue="";
+    let dayValue="";
 
     for (const sensor of sensors) {
       const sensorId = sensor.sensor_id;
       const dateTime = sensor?.date;
       const date = dateTime.split(" ")[0];
       const time = dateTime.split(" ")[1];
+      dayValue=date;
+      timeValue=time;
       const value = parseFloat(sensor.data_value.replace("C", ""));
 
       const addingResult = await addSensorData(sensorId, date, time, value);
@@ -33,20 +39,26 @@ export const getSensorValues = async (req, res) => {
           .json({ error: "Error adding sensor values in database" });
       }
     }
+    let notificationMsg="";
+     // Send email if fanSpeed is "High" or "OFF"
+     if (fanSpeed === "High" || fanSpeed === "OFF") {
+        notificationMsg=fanSpeed=="High"?"Fan Speed is high, consuming more power..":"Fan is off"
+        addNewNotification(timeValue,dayValue,fanSpeed);
+        handleNotifications(fanSpeed,averageTemperature);
+
+    }
     
     const finalArray = await getAllTemperatureValues();
     broadcastData({
       fanSpeed,
       averageTemperature,
       finalArray,
+      notificationMsg
     });
 
     res.status(200).json({ averageTemperature, fanSpeed });
 
-    // Send email if fanSpeed is "High" or "OFF"
-    if (fanSpeed === "High" || fanSpeed === "OFF") {
-      // sendEmail(fanSpeed, averageTemperature);
-    }
+   
   } catch (error) {
     console.log("Error:", error);
     return res.status(500).json({ error: "Internal Server Error" });
@@ -89,7 +101,7 @@ const getAllTemperatureValues = async () => {
           : 0,
     };
 
-    console.log(finalArray);
+    // console.log(finalArray);
     return finalArray;
 
   } catch (error) {
@@ -127,10 +139,7 @@ export const getCurrentTemperatures = async (req, res) => {
       finalArray,
     });
 
-    // Send email if fanSpeed is "High" or "OFF"
-    if (fanSpeed === "High" || fanSpeed === "OFF") {
-      // sendEmail(fanSpeed, averageTemperature);
-    }
+   
   } catch (error) {
     console.log("Error:", error);
     return res.status(500).json({ error: "Internal Server Error" });

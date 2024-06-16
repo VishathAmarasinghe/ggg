@@ -16,3 +16,4 @@ const API=axios.create({
   
   
   export const getTriggeredTemparatures=()=>API.get("/sensor/temparatures");
+  export const getAllNotifications=()=>API.get("/notification");
