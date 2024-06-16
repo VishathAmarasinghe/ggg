@@ -1,13 +1,23 @@
+import React from 'react';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 
-const TemperatureVsTimeChart = () => {
-  const data = {
-    labels: ['9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM'], 
+const TemperatureVsTimeChart = ({ data }) => {
+  console.log("data is ", data);
+  if (!data) {
+    return <p>No data available</p>;
+  }
+
+
+  const labels = data.map(item => Object.keys(item)[0]);
+  const temperatures = data.map(item => parseFloat(Object.values(item)[0]));
+
+  const chartData = {
+    labels: labels,
     datasets: [
       {
         label: 'Temperature (°C)',
-        data: [22, 23, 25, 26, 27, 26, 24], 
+        data: temperatures,
         fill: false,
         backgroundColor: 'rgb(255, 99, 132)',
         borderColor: 'rgba(255, 99, 132, 0.2)',
@@ -20,13 +30,13 @@ const TemperatureVsTimeChart = () => {
       y: {
         beginAtZero: true,
         ticks: {
-          stepSize: 5, 
+          stepSize: 5,
         },
       },
     },
   };
 
-  return <Line data={data} options={options} />;
+  return <Line data={chartData} options={options} />;
 };
 
 export default TemperatureVsTimeChart;

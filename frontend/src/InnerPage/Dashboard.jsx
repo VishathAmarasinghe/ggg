@@ -2,10 +2,16 @@
 import React, { useEffect, useState } from 'react'
 
 import SensordCards from '../Components/SensordCards'
+import { message } from 'antd';
+import { getTriggeredTemparatures } from '../API';
 
 
 const Dashboard = () => {
   const [SingleSensorData,setSingleSensorData]=useState([]);
+
+  useEffect(()=>{
+    fetchData();
+  },[])
 
   useEffect(()=>{
     const ws = new WebSocket('ws://localhost:5020');
@@ -16,7 +22,11 @@ const Dashboard = () => {
 
     ws.onmessage = (message) => {
       const newSensorData = JSON.parse(message.data);
-      setSingleSensorData(newSensorData);
+      console.log("new Sensor Data is ",newSensorData);
+      if (newSensorData?.message!='keep-alive' && newSensorData?.message!="Welcome to the WebSocket server" ) {
+        setSingleSensorData(newSensorData);
+      }
+      
     };
 
     ws.onclose = () => {
@@ -27,6 +37,17 @@ const Dashboard = () => {
       ws.close();
     };
   },[])
+
+
+  const fetchData=async()=>{
+    try {
+      const fetchData=await getTriggeredTemparatures();
+      console.log("fetch data ",fetchData);
+      setSingleSensorData(fetchData.data);
+    } catch (error) {
+      message.error("Data fetching error!");
+    }
+  }
 
 
   return (
@@ -41,7 +62,7 @@ const Dashboard = () => {
         className="w-[95%] bg-white  h-[90%]  flex flex-col lg:flex-col items-center rounded-xl p-1 "
       >
 
-       <SensordCards/>
+       <SensordCards sensorData={SingleSensorData}/>
 
         </div>
         </div>
