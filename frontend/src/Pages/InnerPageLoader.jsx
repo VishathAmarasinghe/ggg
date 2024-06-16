@@ -6,7 +6,7 @@ import PastNotifications from "../InnerPage/PastNotifications";
 
 
 
-
+//page loader
 const pageChanger = (pageChanger) => {
   const user=JSON.parse(localStorage.getItem("profile"));
   console.log("aasa ", pageChanger);

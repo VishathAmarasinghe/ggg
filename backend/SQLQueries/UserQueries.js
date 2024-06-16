@@ -1,5 +1,8 @@
 import connection from "../Config/SqlConnection.js"
 
+
+
+//get all user informations
 export const getAllEmailsofUsers=async()=>{
     try {
 

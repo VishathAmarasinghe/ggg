@@ -14,6 +14,7 @@ const Dashboard = () => {
   },[])
 
   useEffect(()=>{
+    //open socket
     const ws = new WebSocket('ws://localhost:5020');
 
     ws.onopen = () => {
@@ -25,6 +26,7 @@ const Dashboard = () => {
       console.log("new Sensor Data is ",newSensorData);
       if (newSensorData?.message!='keep-alive' && newSensorData?.message!="Welcome to the WebSocket server" ) {
         setSingleSensorData(newSensorData);
+        //get socket messages
         if (newSensorData?.notificationMsg!="") {
           notification.warning({message:"Critical Alart",description:newSensorData?.notificationMsg})
         }

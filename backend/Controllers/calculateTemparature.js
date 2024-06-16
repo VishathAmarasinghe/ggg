@@ -7,6 +7,8 @@ import { broadcastData } from "../WebSocket.js";
 import {handleNotifications} from '../Controllers/NotificationController.js'
 import { addNewNotification } from "../SQLQueries/NotificationQueires.js";
 
+
+//get sensor values from postman
 export const getSensorValues = async (req, res) => {
   const sensors = req.body.sensors;
   try {
@@ -18,6 +20,7 @@ export const getSensorValues = async (req, res) => {
       parseFloat(sensor.data_value.replace("C", ""))
     );
 
+    //calculate average temp
     const averageTemperature = calculateAverage(temperatures);
     const fanSpeed = determineFanSpeed(averageTemperature);
     let timeValue="";
@@ -32,6 +35,7 @@ export const getSensorValues = async (req, res) => {
       timeValue=time;
       const value = parseFloat(sensor.data_value.replace("C", ""));
 
+      //adding temp to db
       const addingResult = await addSensorData(sensorId, date, time, value);
       if (addingResult.affectedRows == 0) {
         return res
@@ -43,12 +47,16 @@ export const getSensorValues = async (req, res) => {
      // Send email if fanSpeed is "High" or "OFF"
      if (fanSpeed === "High" || fanSpeed === "OFF") {
         notificationMsg=fanSpeed=="High"?"Fan Speed is high, consuming more power..":"Fan is off"
+        //notifications adding to db
         addNewNotification(timeValue,dayValue,fanSpeed);
+        //email handling
         handleNotifications(fanSpeed,averageTemperature);
 
     }
     
     const finalArray = await getAllTemperatureValues();
+
+    //broadcasting with socket
     broadcastData({
       fanSpeed,
       averageTemperature,
@@ -65,6 +73,9 @@ export const getSensorValues = async (req, res) => {
   }
 };
 
+
+
+//get Temp values
 const getAllTemperatureValues = async () => {
   try {
     const chartData = {};
@@ -83,6 +94,8 @@ const getAllTemperatureValues = async () => {
       temperatures.push(VALUE);
     });
 
+
+    //get Average
     const avTemp = calculateAverage(temperatures);
     const fanSpeed = determineFanSpeed(avTemp);
     const coolTemp = fanSpeed === "High" ? "cooling" : "normal";
@@ -110,12 +123,18 @@ const getAllTemperatureValues = async () => {
   }
 };
 
+
+
+//calculate average
 function calculateAverage(arr) {
   if (arr.length === 0) return 0;
   const sum = arr.reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
   return sum / arr.length;
 }
 
+
+
+//select the fan speed
 function determineFanSpeed(averageTemperature) {
   if (averageTemperature < 15) {
     return "OFF";
@@ -128,6 +147,8 @@ function determineFanSpeed(averageTemperature) {
   }
 }
 
+
+//get current temp values
 export const getCurrentTemperatures = async (req, res) => {
   try {
     const finalArray = await getAllTemperatureValues();

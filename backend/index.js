@@ -17,7 +17,7 @@ app.use(cors());
 
 
 const server = http.createServer(app);
-
+//configure socket
 createWebSocketServer(server);
 
 const PORT=5020;
@@ -25,7 +25,7 @@ const PORT=5020;
 
 
 
-
+//db connection
 connection.connect((err) => {
   if (err) {
     console.error('Error connecting to the database:', err);
@@ -34,7 +34,7 @@ connection.connect((err) => {
   console.log('Connected to the database');
 });
 
-
+//routes
 app.use("/sensor",SensorRoute);
 app.use('/notification', NotificationRoute);
 app.use("/pastInfo",PastDataRoute);

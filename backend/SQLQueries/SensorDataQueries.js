@@ -1,5 +1,8 @@
 import connection from "../Config/SqlConnection.js"
 
+
+
+//add sensor data to backend
 export const addSensorData=async(sensorId, date, time, value)=>{
     try {
 
