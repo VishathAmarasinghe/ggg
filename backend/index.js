@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import cors from 'cors';
 import SensorRoute from './Routes/SensorRoutes.js';
 import NotificationRoute from './Routes/NotificationRoutes.js';
+import PastDataRoute from './Routes/PastData.js';
 
 import connection from "./Config/SqlConnection.js";
 import { createWebSocketServer } from "./WebSocket.js";
@@ -36,7 +37,7 @@ connection.connect((err) => {
 
 app.use("/sensor",SensorRoute);
 app.use('/notification', NotificationRoute);
-
+app.use("/pastInfo",PastDataRoute);
 
 
 
