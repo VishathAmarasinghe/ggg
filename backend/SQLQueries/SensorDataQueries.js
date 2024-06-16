@@ -36,6 +36,29 @@ export const getAllSensorReadingsBydate=async(date)=>{
                 }
             })
         })
+        // console.log("rows ",rows);
+        return rows;
+    } catch (error) {
+        throw error;
+    }
+}
+
+
+
+export const getPastDataByDateAndID=async(date,ID)=>{
+    try {
+
+        const rows=await new Promise((resolve,reject)=>{
+            connection.query("SELECT * FROM `sensors data` where DATE=? AND SENSOR_ID=?",
+            [date,ID],
+            (err,row)=>{
+                if (err) {
+                    reject(err)
+                }else{
+                    resolve(row)
+                }
+            })
+        })
         console.log("rows ",rows);
         return rows;
     } catch (error) {
