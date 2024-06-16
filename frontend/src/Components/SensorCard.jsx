@@ -22,30 +22,41 @@ const SensorCard = ({ sensorData, sensor }) => {
   }
 
   return (
-    <div className="flex flex-col p-2 my-auto justify-center items-center box-context w-64 h-[28rem] bg-[#bcedcb] shadow-lg rounded-lg">
-      <div className="box-context w-56 h-12 bg-white rounded-lg shadow-green-900 shadow-xl">
-        <div className="flex justify-center mt-1">
+<div className="flex p-2 my-auto justify-center items-center box-context h-52 m-2 bg-[#bcedcb] shadow-lg rounded-lg hover:bg-teal-600">
+      <div className='flex flex-col justify-around w-64'>
+
+        <div className="box-context w-56 h-12 bg-white rounded-lg shadow-green-900 shadow-xl">
+         <div className="flex justify-center mt-1">
           <p className="sensorText">Sensor {sensor}</p>
+         </div>
         </div>
+
+        <div className='w-64'>
+        
+          <div className="box-context w-56 h-12 bg-white rounded-lg shadow-green-900 shadow-xl mt-4">
+           <div>
+             {/* Add any additional sensor-specific data here */}
+           </div>
+          </div>
+
+          <div className="box-context w-56 h-12 bg-white rounded-lg shadow-green-900 shadow-xl mt-4">
+           <div>
+             {/* Add any additional sensor-specific data here */}
+           </div>
+          </div>
+
+        </div>
+
       </div>
 
-      <div className="box-context w-56 h-12 bg-white rounded-lg shadow-green-900 shadow-xl mt-4">
+      <div className='w-88'>
+       <div className="box-context w-80 h-48 bg-white rounded-lg shadow-green-900 shadow-xl">
         <div>
-          {/* Add any additional sensor-specific data here */}
+          <TemperatureVsTimeChart data={specificSensorData}/>
         </div>
       </div>
-
-      <div className="box-context w-56 h-12 bg-white rounded-lg shadow-green-900 shadow-xl mt-4">
-        <div>
-          {/* Add any additional sensor-specific data here */}
-        </div>
       </div>
-
-      <div className="box-context w-56 h-56 bg-white rounded-lg shadow-green-900 shadow-xl mt-4">
-        <div>
-          <TemperatureVsTimeChart data={specificSensorData} />
-        </div>
-      </div>
+    
     </div>
   );
 };
