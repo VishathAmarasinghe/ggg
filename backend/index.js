@@ -2,6 +2,7 @@ import  express from "express";
 import bodyParser from "body-parser";
 import cors from 'cors';
 import SensorRoute from './Routes/SensorRoutes.js';
+import PastDataRoute from './Routes/PastData.js';
 
 import connection from "./Config/SqlConnection.js";
 import { createWebSocketServer } from "./WebSocket.js";
@@ -34,6 +35,7 @@ connection.connect((err) => {
 
 
 app.use("/sensor",SensorRoute);
+app.use("/pastInfo",PastDataRoute);
 
 
 
