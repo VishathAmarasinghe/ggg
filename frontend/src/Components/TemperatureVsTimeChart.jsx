@@ -30,8 +30,10 @@ const TemperatureVsTimeChart = ({ data }) => {
       y: {
         beginAtZero: true,
         ticks: {
-          stepSize: 5,
+          stepSize: 10,
         },
+        min:10,
+        max:120
       },
     },
   };
